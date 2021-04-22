@@ -7,7 +7,18 @@
  * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
  */
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/Scanner.js":
+/*!************************!*\
+  !*** ./src/Scanner.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ Scanner)\n/* harmony export */ });\nclass Scanner {\r\n\tconstructor(templateStr) {\r\n\t\tthis.templateStr = templateStr\r\n\t\t// 指针\r\n\t\tthis.pos = 0\r\n\t\t// 尾巴\r\n\t\tthis.tail = templateStr\r\n\t\t\r\n\t}\r\n\tscan(stopTag) {\r\n\t\tthis.pos +=  stopTag.length\r\n\t\tthis.tail = this.templateStr.substring(this.pos)\r\n\t}\r\n\tscanUntil(stopTag) {\r\n\t\tconst pos_backup = this.pos\r\n\t\twhile (!this.eos() && this.tail.indexOf(stopTag) !== 0){\r\n\t\t\tthis.pos++\r\n\t\t\tthis.tail = this.templateStr.substring(this.pos)\r\n\t\t}\r\n\t\treturn this.templateStr.substring(pos_backup, this.pos)\r\n\t}\r\n\teos() {\r\n\t\treturn this.pos >= this.templateStr.length\r\n\t}\r\n}\n\n//# sourceURL=webpack://my-template-engine/./src/Scanner.js?");
+
+/***/ }),
 
 /***/ "./src/index.js":
 /*!**********************!*\
@@ -15,8 +26,7 @@
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parseTemplateToTokens.js */ \"./src/parseTemplateToTokens.js\");\n/* harmony import */ var _parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__);\n\r\n\r\nwindow.My_TemplateEngine = {\r\n\trender(templateStr, data) {\r\n\t\tconst scanner = new Scanner(templateStr)\r\n\t\tlet word\r\n\t\twhile (!scanner.eos()){\r\n\t\t\tword = scanner.scanUntil('{{')\r\n\t\t\tconsole.log(word)\r\n\t\t\tscanner.scan('{{')\r\n\t\t\tword = scanner.scanUntil('}}')\r\n\t\t\tconsole.log(word)\r\n\t\t\tscanner.scan('}}')\r\n\t\t}\r\n\t}\r\n}\n\n//# sourceURL=webpack://my-template-engine/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parseTemplateToTokens.js */ \"./src/parseTemplateToTokens.js\");\n\r\n\r\nwindow.My_TemplateEngine = {\r\n\trender(templateStr, data) {\r\n\t\tconst tokens = (0,_parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__.default)(templateStr)\r\n\t\tconsole.log(tokens)\r\n\t}\r\n}\n\n//# sourceURL=webpack://my-template-engine/./src/index.js?");
 
 /***/ }),
 
@@ -24,9 +34,9 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _par
 /*!**************************************!*\
   !*** ./src/parseTemplateToTokens.js ***!
   \**************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("\n\n//# sourceURL=webpack://my-template-engine/./src/parseTemplateToTokens.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _Scanner_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Scanner.js */ \"./src/Scanner.js\");\n\r\n\r\n// 函数 parseTemplateToTokens\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (templateStr => {\r\n\tconst tokens = []\r\n\tconst scanner = new _Scanner_js__WEBPACK_IMPORTED_MODULE_0__.default(templateStr)\r\n\tlet word\r\n\twhile (!scanner.eos()) {\r\n\t\tword = scanner.scanUntil('{{')\r\n\t\tword && tokens.push(['text', word])\r\n\t\tscanner.scan('{{')\r\n\t\tword = scanner.scanUntil('}}')\r\n\t\tword && (word[0] === '#' ? tokens.push(['#', word.substr(1)]) : \r\n\t\t\tword[0] === '/' ? tokens.push(['/', word]) : tokens.push(['name', word]))\r\n\t\tscanner.scan('}}')\r\n\t}\r\n\treturn tokens\r\n});\r\n\n\n//# sourceURL=webpack://my-template-engine/./src/parseTemplateToTokens.js?");
 
 /***/ })
 
@@ -57,18 +67,6 @@ eval("\n\n//# sourceURL=webpack://my-template-engine/./src/parseTemplateToTokens
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports

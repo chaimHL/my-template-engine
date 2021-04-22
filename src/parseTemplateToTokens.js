@@ -1,4 +1,5 @@
 import Scanner from './Scanner.js'
+import nestTokens from './nestTokens'
 
 // 函数 parseTemplateToTokens
 export default templateStr => {
@@ -10,9 +11,12 @@ export default templateStr => {
 		word && tokens.push(['text', word])
 		scanner.scan('{{')
 		word = scanner.scanUntil('}}')
+		/**
+		 * 
+		 */
 		word && (word[0] === '#' ? tokens.push(['#', word.substr(1)]) : 
 			word[0] === '/' ? tokens.push(['/', word]) : tokens.push(['name', word]))
 		scanner.scan('}}')
 	}
-	return tokens
+	return nestTokens(tokens)
 }

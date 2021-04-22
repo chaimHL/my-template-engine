@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-	"scripts": {
-		"build": "webpack",
-		"dev": "webpack serve --open chrome.exe"
-	},
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack serve --open chrome.exe"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
