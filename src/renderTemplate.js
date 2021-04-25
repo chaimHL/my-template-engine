@@ -1,9 +1,9 @@
 import lookup from './lookup.js'
+import parseArray from './parseArray.js'
 
 export default (tokens, data) => {
   let domString = ''
-  tokens.forEach(token => {
-    console.log(token);
+  tokens.forEach(token => {  
     switch (token[0]) {
       case 'text':
         domString += token[1]
@@ -11,9 +11,12 @@ export default (tokens, data) => {
       case 'name':
         domString += lookup(data, token[1])
         break
+      case '#':
+        domString += parseArray(token[2], data[token[1]])
+        break
       default:
         break
     }
-  })
-  console.log(domString)
+  }) 
+  return domString
 }

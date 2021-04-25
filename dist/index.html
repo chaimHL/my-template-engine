@@ -7,46 +7,48 @@
 </head>
 
 <body>
-	<script src="/main.js"></script>
-	<script type="text/javascript">
-		// const templateStr = `
-		// 	<ul>
-		// 			{{#arr}}
-		// 				<li>
-		// 					<div>{{name}}的基本信息</div>
-		// 					<div>
-		// 						<p>{{name}}</p>
-		// 						<p>{{age}}</p>
-		// 						<div>
-		// 							<p>爱好：</p>
-		// 							<ol>
-		// 								{{#hobbies}}
-		// 									<li>{{.}}</li>
-		// 								{{/hobbies}}
-		// 							</ol>
-		// 						</div>
-		// 					</div>
-		// 				</li>
-		// 			{{/arr}}
-		// 	</ul>
-		// `
-		// const data = {
-		// 	arr: [
-		// 		{
-		// 			name: 'Jay',
-		// 			age: 18,
-		// 			hobbies: ['篮球', '羽毛球']
-		// 		},
-		// 		{
-		// 			name: 'Bin',
-		// 			age: 20,
-		// 			hobbies: ['游泳', '骑车']
-		// 		}
-		// 	]
-		// }
-		const templateStr = `<div>{{name}}的基本信息,{{test.a.b}}</div>`
-		const data = { name: 'Jay', test: { a: { b: 10 } } }
-		My_TemplateEngine.render(templateStr, data)
+		<div id="content"></div>
+		<script src="/main.js"></script>
+		<script type="text/javascript">
+		const templateStr = `
+			<ul>
+					{{#arr}}
+						<li>
+							<div class="name">{{ name }}的基本信息</div>
+							<div>
+								<p>{{ name }}</p>
+								<p>{{ age }}</p>
+								<div>
+									<p>爱好：</p>
+									<ol>
+										{{#hobbies}}
+											<li>{{.}}</li>
+										{{/hobbies}}
+									</ol>
+								</div>
+							</div>
+						</li>
+					{{/arr}}
+			</ul>
+		`
+		const data = {
+			arr: [
+				{
+					name: 'Jay',
+					age: 18,
+					hobbies: ['篮球', '羽毛球']
+				},
+				{
+					name: 'Bin',
+					age: 20,
+					hobbies: ['游泳', '骑车']
+				}
+			]
+		}
+
+		const domStr = My_TemplateEngine.render(templateStr, data)
+		const content = document.getElementById('content')
+		content.innerHTML = domStr
 	</script>
 </body>
 

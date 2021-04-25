@@ -4,7 +4,7 @@
  */
 
 export default (data, key) => {
-  if (key.indexOf('.') !== -1 ) {
+  if (key.indexOf('.') !== -1 && key !== '.') {
     const keys = key.split('.')
     return keys.reduce((acc, cur) => {
       return acc[cur]

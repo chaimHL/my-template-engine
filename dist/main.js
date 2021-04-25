@@ -26,7 +26,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parseTemplateToTokens.js */ \"./src/parseTemplateToTokens.js\");\n/* harmony import */ var _renderTemplate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./renderTemplate.js */ \"./src/renderTemplate.js\");\n\r\n\r\n\r\nwindow.My_TemplateEngine = {\r\n\trender(templateStr, data) {\r\n\t\tconst tokens = (0,_parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__.default)(templateStr)\r\n\t\tconsole.log(tokens)\r\n\t\t;(0,_renderTemplate_js__WEBPACK_IMPORTED_MODULE_1__.default)(tokens)\r\n\t}\r\n}\n\n//# sourceURL=webpack://my-template-engine/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./parseTemplateToTokens.js */ \"./src/parseTemplateToTokens.js\");\n/* harmony import */ var _renderTemplate_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./renderTemplate.js */ \"./src/renderTemplate.js\");\n\r\n\r\n\r\nwindow.My_TemplateEngine = {\r\n\trender(templateStr, data) {\r\n\t\tconst tokens = (0,_parseTemplateToTokens_js__WEBPACK_IMPORTED_MODULE_0__.default)(templateStr)\r\n\t\t// 把 tokens 解析为 dom 字符串\r\n\t\tconst domStr = (0,_renderTemplate_js__WEBPACK_IMPORTED_MODULE_1__.default)(tokens, data)\r\n\t\tconsole.log(domStr);\r\n\t}\r\n}\n\n//# sourceURL=webpack://my-template-engine/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/lookup.js":
+/*!***********************!*\
+  !*** ./src/lookup.js ***!
+  \***********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/**\r\n * 因为 js 无法通过 data[a.b.c] 这样的形式取值，所以本函数的作用就是\r\n * 保证即使是 a.b.c 这种形式的 key 值也能成功从 data 获取到 value\r\n */\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((data, key) => {\r\n  if (key.indexOf('.') !== -1 ) {\r\n    const keys = key.split('.')\r\n    return keys.reduce((acc, cur) => {\r\n      return acc[cur]\r\n    }, data)\r\n  }\r\n  return data[key]\r\n});\r\n\n\n//# sourceURL=webpack://my-template-engine/./src/lookup.js?");
 
 /***/ }),
 
@@ -56,7 +66,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (() => {\r\n  \r\n});\n\n//# sourceURL=webpack://my-template-engine/./src/renderTemplate.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _lookup_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lookup.js */ \"./src/lookup.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((tokens, data) => {\r\n  let domString = ''\r\n  tokens.forEach(token => {\r\n    console.log(token);\r\n    switch (token[0]) {\r\n      case 'text':\r\n        domString += token[1]\r\n        break\r\n      case 'name':\r\n        domString += (0,_lookup_js__WEBPACK_IMPORTED_MODULE_0__.default)(data, token[1])\r\n        break\r\n      default:\r\n        break\r\n    }\r\n  }) \r\n  return domString\r\n});\n\n//# sourceURL=webpack://my-template-engine/./src/renderTemplate.js?");
 
 /***/ })
 
